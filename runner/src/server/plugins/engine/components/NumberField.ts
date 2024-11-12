@@ -79,7 +79,10 @@ export class NumberField extends FormComponent {
     };
 
     if (this.schemaOptions.precision) {
-      viewModel.attributes.step = "0." + "1".padStart(schema.precision, "0");
+      if (Number(this.schemaOptions.precision) !== 0) {
+        viewModel.attributes.step =
+          "0." + "1".padStart(this.schemaOptions.precision, "0");
+      }
     }
 
     return viewModel;

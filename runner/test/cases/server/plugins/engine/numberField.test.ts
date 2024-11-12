@@ -59,4 +59,29 @@ test("Prefix and suffix are passed to view model", () => {
     prefix: { text: "@£%" },
     suffix: { text: "&^%%" },
   });
+
+  test("Specifying a precision on the schema correctly sets the step attribute", () => {
+    const precisionScenarioOne = new NumberField({
+      ...baseDef,
+      schema: { precision: "0" },
+    });
+    const precisionScenarioTwo = new NumberField({
+      ...baseDef,
+      schema: { precision: "1" },
+    });
+    const precisionScenarioThree = new NumberField({
+      ...baseDef,
+      schema: { precision: "3" },
+    });
+
+    expect(precisionScenarioOne.getViewModel({})).to.not.include({
+      attributes: { step: "0.1" },
+    });
+    expect(precisionScenarioTwo.getViewModel({})).to.contain({
+      attributes: { step: "0.1" },
+    });
+    expect(precisionScenarioThree.getViewModel({})).to.contain({
+      attributes: { step: "0.001" },
+    });
+  });
 });
