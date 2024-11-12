@@ -28,6 +28,9 @@ export class EmailAddressField extends FormComponent {
     const schema = this.schema;
     const viewModel = super.getViewModel(formData, errors);
 
+    // maxlength continues to be applied for emails as it is consistent with the email
+    // format being validated by default HTML form validationl. This should be removed
+    // as a bigger change with the `novalidate` attribute which can then consistenly apply server side `max` validation
     if ("max" in schema && schema.max) {
       viewModel.attributes = {
         maxlength: schema.max,

@@ -89,6 +89,8 @@ export class MultilineTextField extends FormComponent {
     viewModel.isCharacterOrWordCount = this.isCharacterOrWordCount;
 
     if (schema.max ?? false) {
+      // note this does not set the `maxlength` attribute on an HTML input, the view model
+      // will pass the property into the govukCharacterCount macro
       viewModel.maxlength = schema.max;
     }
 
